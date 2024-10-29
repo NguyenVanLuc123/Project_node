@@ -1,0 +1,139 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+block main 
+
+    +alert-error(5000)
+
+    h1(class="mb-4") 
+        !=pagetitle
+
+    form(action=`${prefixAdmin}/products/repair/${products[0]._id}?_method=PATCH` 
+         id="form-create-product"
+         method="post" enctype="multipart/form-data"
+    )
+        div(class="form-group")
+            label(for="_id") ID
+            input(
+                type="text" 
+                class="form-control" 
+                id="_id" 
+                name="_id"
+                value=products[0]._id
+                readonly
+            )
+        div(class="form-group")
+            label(for="title") Tieu de 
+            input(
+                type="text" 
+                class="form-control" 
+                id="title" 
+                name="title"
+                value=products[0].title 
+                required
+            )
+        div(class="form-group")
+            label(for="desc") Mo ta 
+            textarea(
+                class="form-control" 
+                id="desc" 
+                name="description" 
+                rows="5"
+            )
+                != products[0].description 
+        div(class="form-group")
+            label(for="price") Gia 
+            input(
+                type="number" 
+                class="form-control" 
+                id="price" 
+                name="price" 
+                value=products[0].price
+                min="0"
+            ) 
+        div(class="form-group")
+            label(for="discount") % Giam gia 
+            input(
+                type="number" 
+                class="form-control" 
+                id="discount" 
+                name="discountPercentage" 
+                value=products[0].discountPercentage
+                min="0"
+            ) 
+        div(class="form-group")
+            label(for="stock") So luong 
+            input(
+                type="number" 
+                class="form-control" 
+                id="stock" 
+                name="stock" 
+                value=products[0].stock
+                min="0"
+            )
+        div(class="form-group" upload-image)
+            label(for="thumbnail") Anh
+            input(
+                type="file" 
+                class="form-control-file" 
+                id="thumbnail" 
+                name="thumbnail" 
+                accept="image/*"
+                upload-image-input
+            )
+            img(id="thumbnail-preview" src=products[0].thumbnail upload-image-preview style="margin-top:10px;" width="200")
+        div(class="form-group")
+            label(for="position") Vi tri
+            input(
+                type="number" 
+                class="form-control" 
+                id="position" 
+                name="position" 
+                value=products[0].position
+                placeholder="Tu dong tang"
+                min="1"
+            )
+        if(products[0].status == "true")
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio" 
+                    class="form-check-input" 
+                    id="statusActive" 
+                    name="status" 
+                    value="true"
+                    checked
+                )
+                label(for="statusActive" class="form-check-label") hoat dong
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio" 
+                    class="form-check-input" 
+                    id="statusInactive" 
+                    name="status" 
+                    value="false"
+                )
+                label(for="statusInactive" class="form-check-label") dung hoat dong
+        else 
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio" 
+                    class="form-check-input" 
+                    id="statusActive" 
+                    name="status" 
+                    value="true"
+                )
+                label(for="statusActive" class="form-check-label") hoat dong
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio" 
+                    class="form-check-input" 
+                    id="statusInactive" 
+                    name="status" 
+                    value="false"
+                    checked
+                )
+                label(for="statusInactive" class="form-check-label") dung hoat dong
+        div(class="form-group")
+           button(
+            type="submit"
+            class="btn btn-primary"
+           ) Update

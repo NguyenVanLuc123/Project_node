@@ -1,0 +1,81 @@
+body{
+    box-sizing: border-box;
+}
+table{
+   width: 100%;
+}
+.header {
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    padding: 10px 0px 10px 10px;
+    top: 0;
+    z-index:999;
+    position: sticky;
+}
+.header .inner-logo a{
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+} 
+
+.body .sider {
+   width: 150px;
+   background-color:#303332 ;
+   color: #fff;
+   font-size: 20px;
+   height: calc(100vh - 56px);
+   position: fixed;
+   left: 0;
+   top: 56px;
+}
+
+.body .main {
+   margin: 15px;
+   position: relative;
+   left :150px;
+   width: calc(100% - 180px);
+ }
+
+ /* sider */
+ .sider .inner-menu ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+ }
+ .sider .inner-menu ul li{
+    padding: 5px;
+    border-bottom: 1px solid #FFF;
+ }
+ .sider .inner-menu ul li a{
+    color: #FFF;
+ }
+
+  /* sider */
+
+
+/* show_alert */
+[show-alert]{
+   position: fixed;
+   top: 70px;
+   right:15px;
+   z-index: 99999;
+}
+
+[show-alert].alert-hidden{
+   animation-name: alert-hidden ;
+   animation-duration: 0.5s;
+   animation-fill-mode:both ;
+}
+
+@keyframes alert-hidden{
+   from{
+      right:15px;
+   }
+   to{
+      right: -100%;
+      display: none;
+   }
+}
+/*End show_alert */

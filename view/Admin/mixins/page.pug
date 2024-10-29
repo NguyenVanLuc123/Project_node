@@ -1,0 +1,13 @@
+mixin  pages(Page_pagi)
+    nav 
+        ul.pagination 
+            if(Page_pagi.current_page > 1 && Page_pagi.totalPage >0)
+                li.page-item    
+                    button(class="page-link" page-number=Page_pagi.current_page-1) Trang trước
+            -for(var i = Page_pagi.current_page; i <= Page_pagi.totalPage && i<=Page_pagi.current_page+2 ;i++)
+                li(class=`page-item ${Page_pagi.current_page == i ? "active" :""}`)
+                   button(class=`page-link` page-number=i)
+                    != i
+            if(Page_pagi.current_page<Page_pagi.totalPage)
+                li.page-item    
+                    button(class="page-link " page-number= Page_pagi.current_page + 1) Kế tiếp 
