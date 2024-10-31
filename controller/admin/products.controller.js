@@ -147,9 +147,9 @@ module.exports.createPost= async(req,res)=>{
 module.exports.repair=async (req,res)=>{
 
   try{
-  const ID_repair=req.params.id
+  
   let find= {
-    _id:ID_repair
+    _id:req.params.id
   };
   const products= await Product.find(find);
   res.render("admin/pages/products/repair",{
@@ -180,4 +180,22 @@ module.exports.update= async(req,res)=>{
   res.redirect(`${systeamCOnfig.prefixAdmin}/products`)
 }
 
+
+module.exports.detail=async (req,res)=>{
+
+  try{
+  
+  let find= {
+    _id:req.params.id
+  };
+  const products= await Product.find(find);
+  console.log(products)
+  res.render("admin/pages/products/detail",{
+    products:products,
+    pagetitle:" chi tiet san pham ",
+});
+  }catch(erorr){
+    res.redirect(`${systeamCOnfig.prefixAdmin}/products`)
+  }
+}
 //[GET] admin get product

@@ -16,4 +16,6 @@ router.post("/create",upload.single('thumbnail'),validate.createPost,controller.
 router.get("/repair/:id",controller.repair);
 
 router.patch("/repair/:id",upload.single('thumbnail'),validate.createPost,controller.update);
+
+router.get("/detail/:id",controller.detail);
 module.exports=router
