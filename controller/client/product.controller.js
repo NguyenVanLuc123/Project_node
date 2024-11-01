@@ -14,3 +14,25 @@ module.exports.index= async  (req, res) => {
         products:products,
     });
 };
+
+
+module.exports.detail=async (req,res)=>{
+    try{
+
+
+     
+        let find= {
+          deleted:"false",
+          slug:req.params.slug,
+          status:"true"
+        };
+        const products= await Product.find(find);
+        console.log(products);
+        res.render("client/pages/product/detail",{
+          products:products,
+          pagetitle:" chi tiet san pham ",
+      });
+        }catch(erorr){
+          res.redirect(`/products`)
+        }
+}
