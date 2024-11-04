@@ -31,14 +31,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 const port = process.env.port;
 
 
-app.set("views",`${__dirname}./view`);
+app.set("views",`${__dirname}/view`);
 app.set("view engine","pug")
 
 // app locals variables
 
 app.locals.prefixAdmin=systemconfig.prefixAdmin
 
-app.use(express.static(`${__dirname}public`))
+app.use(express.static(`${__dirname}/public`))
 
 router(app)
 routerAdmin(app)
