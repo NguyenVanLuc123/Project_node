@@ -134,10 +134,8 @@ module.exports.createPost= async(req,res)=>{
   else{
     req.body.position=parseInt(req.body.position)
   }
- 
-  if(req.file){
-  req.body.thumbnail=`/uploads/${req.file.filename}`;
-  }
+
+
   const product= new Product(req.body);
   await product.save();
   res.redirect(`${systeamCOnfig.prefixAdmin}/products`)
@@ -168,9 +166,7 @@ module.exports.update= async(req,res)=>{
   req.body.stock=parseInt( req.body.stock);
   req.body.position=parseInt(req.body.position);
  
-  if(req.file){
-  req.body.thumbnail=`/uploads/${req.file.filename}`;
-  }
+
   await Product.updateOne(
     { _id: req.body._id },  // Điều kiện để tìm document
     { $set: req.body },     // Dữ liệu mới từ req.body
