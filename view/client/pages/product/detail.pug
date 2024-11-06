@@ -22,4 +22,5 @@ block main
         if(products[0].position)
             div.mb-4 Vi tri : <b>#{products[0].position}</b>
         if(products[0].description)
-            div.mb-4  <b>#{products[0].description}</b>
+            div.mb-4  
+                != products[0].description

@@ -5,7 +5,7 @@ var methodOverride = require('method-override')
 var bodyParser = require('body-parser')
 const systemconfig=require("./config/system")
 const database =require('./config/database')
-
+const path = require('path');
 const router=require("./router/client/index.router")
 
 const routerAdmin=require("./router/admin/index.router")
@@ -30,7 +30,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 const port = process.env.port;
 
+//tinimce
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
+//tinimce
 app.set("views",`${__dirname}/view`);
 app.set("view engine","pug")
 

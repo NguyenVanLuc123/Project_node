@@ -63,7 +63,7 @@ module.exports.products= async(req,res) =>{
     const products= await Product.find(find).sort(sort).limit(objectPaginayion.limitItem).skip(objectPaginayion.skip_page);
    
 
-    res.render("admin/pages/products/index",{
+    res.render("Admin/pages/products/index",{
         pagetitle:"danh sach san pham ",
         products:products,
         select_KEYVALUE:select_KEYVALUE,
@@ -132,7 +132,7 @@ module.exports.deleteProduct= async (req,res)=>{
 }
 
 module.exports.create=async (req,res)=>{
-  res.render("admin/pages/products/create",{
+  res.render("Admin/pages/products/create",{
     pagetitle:"tao moi san pham ",
 });
 }
@@ -151,7 +151,7 @@ module.exports.createPost= async(req,res)=>{
   else{
     req.body.position=parseInt(req.body.position)
   }
-
+  
 
   const product= new Product(req.body);
   await product.save();
@@ -167,7 +167,7 @@ module.exports.repair=async (req,res)=>{
     _id:req.params.id
   };
   const products= await Product.find(find);
-  res.render("admin/pages/products/repair",{
+  res.render("Admin/pages/products/repair",{
     products:products,
     pagetitle:" sủa san pham ",
 });
@@ -203,7 +203,7 @@ module.exports.detail=async (req,res)=>{
   };
   const products= await Product.find(find);
   console.log(products)
-  res.render("admin/pages/products/detail",{
+  res.render("Admin/pages/products/detail",{
     products:products,
     pagetitle:" chi tiet san pham ",
 });
