@@ -42,14 +42,31 @@ module.exports.products= async(req,res) =>{
     pagePagination(req.query,objectPaginayion,totalProducts);
    
     //paginTION
-    
-  
-    const products= await Product.find(find).sort({position:"desc"}).limit(objectPaginayion.limitItem).skip(objectPaginayion.skip_page);
+    //select-sort
+    let sort={}
+    if(req.query.select_key&&req.query.sortvalue){
+     
+      sort[req.query.select_key]=req.query.sortvalue;
+    }
+    else{
+      sort.position="desc";
+    }
+
+    if(req.query.sortvalue!="desc"&&req.query.sortvalue!="asc"){
+      sort={};
+      sort.position="desc";
+    }
+    const select_KEYVALUE=Object.keys(sort)+"-"+sort[Object.keys(sort)];
+   
+
+    //select-sort
+    const products= await Product.find(find).sort(sort).limit(objectPaginayion.limitItem).skip(objectPaginayion.skip_page);
    
 
     res.render("admin/pages/products/index",{
         pagetitle:"danh sach san pham ",
         products:products,
+        select_KEYVALUE:select_KEYVALUE,
         filterStatus: filterStatus(req.query),
         Page_pagi:objectPaginayion,
     });

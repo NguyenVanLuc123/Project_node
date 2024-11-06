@@ -197,6 +197,24 @@ if(upload_image){
 }
 
 
-//AND preview_image
+//END preview_image
 
 
+// sort_select
+
+const form_control = document.querySelector("[sort-select]");
+
+form_control.addEventListener("change", function() {
+    const parts = this.value.split("-");
+    let url= new URL(window.location.href);
+    if(parts){
+        url.searchParams.set("select_key", parts[0]);
+        url.searchParams.set("sortvalue", parts[1]);
+        window.location.href=url.href;
+    }
+});
+
+
+
+
+//END sort_select
