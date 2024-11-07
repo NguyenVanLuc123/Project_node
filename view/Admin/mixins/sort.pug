@@ -17,3 +17,20 @@ mixin sort(select_KEYVALUE)
             class="btn btn-danger mt-2"
             sort-clear
         ) clear 
+mixin sort_category(select_KEYVALUE)
+    div(sort)
+        select(
+            class="form-control"
+            name="sort"
+            sort-select
+        )    
+            option(value="position-desc" selected=select_KEYVALUE === 'position-desc') vi tri giam dan
+            option(value="position-asc" selected=select_KEYVALUE === 'position-asc') vi tri tang dan
+            option(value="title-asc" selected=select_KEYVALUE === 'title-asc') tieu de A-Z
+            option(value="title-desc" selected=select_KEYVALUE === 'title-desc') tieu de Z-A
+
+        a(
+            href=`${prefixAdmin}/products_category`
+            class="btn btn-danger mt-2"
+            sort-clear
+        ) clear 

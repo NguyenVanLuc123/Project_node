@@ -7,7 +7,8 @@ include ../../mixins/alert.pug
 include ../../mixins/sort.pug
 block main  
     +alert-success(5000)
-    h1 Danh sach san pham 
+    h1 
+        != pagetitle 
 
     .card.mb-3 
         .card-header Bo loc va tim kiem 

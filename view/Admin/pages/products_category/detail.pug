@@ -1,17 +1,15 @@
 extends ../../layout/default.pug 
 
 block main 
+
     if(products[0].title)
-        h1.mb-4 #{products[0].title}
-    if(products[0].price)
-        div.mb-4 Gia:  <b>#{products[0].price}$</b>
-    if(products[0].discountPercentage)
-        div.mb-4 Giam gia: <b>#{products[0].discountPercentage}$</b>
-    if(products[0].stock)
-        div.mb-4 Con lai : <b>#{products[0].stock}</b>
+        h1.mb-4  #{products[0].title}
     if(products[0].thumbnail)
         div.mb-4 
             img(src=`${products[0].thumbnail}`, alt=`${products[0].title}` class="mb-4")
+    if(products[0].parent_id)
+        div.mb-4  perent_id:   
+            !=  products[0].parent_id
     if(products[0].status)
         div.mb-4 
             if(products[0].status=="true")
