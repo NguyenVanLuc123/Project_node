@@ -5,8 +5,7 @@ block main
     +alert-error(5000)
 
     h1(class="mb-4") 
-        !=pagetitle
-
+        != pagetitle
     form(action=`${prefixAdmin}/products_category/repair/${products[0]._id}?_method=PATCH` 
          id="form-create-product"
          method="post" enctype="multipart/form-data"
