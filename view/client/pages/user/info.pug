@@ -1,0 +1,22 @@
+extends ../../layout/default
+include ../../mixins/alert.pug
+include ../../mixins/box-head.pug
+
+block main 
+    .container.my-5 
+        .row
+            .col-12
+                +box-head('Thông tin người dùng')
+        .row
+            .col-md-6.offset-md-3
+                .card
+                    .card-header.bg-primary.text-white.text-center
+                        h4 Thông tin cá nhân
+                    .card-body
+                        ul.list-group.list-group-flush
+                            li.list-group-item
+                                strong Tên: 
+                                span= user.fullName
+                            li.list-group-item
+                                strong Email: 
+                                span= user.email

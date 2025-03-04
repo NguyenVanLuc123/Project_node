@@ -1,26 +1,49 @@
 extends ../../layout/default.pug
-
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
 block main 
-    .container.my-3 
-        if(products[0].title)
-            h1.mb-4 #{products[0].title}
-        if(products[0].price)
-            div.mb-4 Gia:  <b>#{products[0].price}$</b>
-        if(products[0].discountPercentage)
-            div.mb-4 Giam gia: <b>#{products[0].discountPercentage}$</b>
-        if(products[0].thumbnail)
-            div.mb-4 Con lai : <b>#{products[0].stock}</b>
-        if(products[0].thumbnail)
-            div.mb-4 
-                img(src=`${products[0].thumbnail}`, alt=`${products[0].title}` style="height:300px;width:auto" class="mb-4")
-        if(products[0].status)
-            div.mb-4 
-                if(products[0].status=="true")
-                    a(href="javascript:;" data-status=products[0].status button-change-status data-id=products[0]._id class=`badge badge-success`) Hoat dong
-                else 
-                    a(href="javascript:;" data-status=products[0].status button-change-status data-id=products[0]._id class=`badge badge-danger`) Dung Hoat dong
-        if(products[0].position)
-            div.mb-4 Vi tri : <b>#{products[0].position}</b>
-        if(products[0].description)
-            div.mb-4  
-                != products[0].description
+    +alert-success(5000)
+    .product-detail
+        .container.my-5
+            
+            .row 
+                .col-6 
+                    .inner-thumb 
+                        img(src=`${products[0].thumbnail}`, alt=`${products[0].title}` )
+                .col-6
+                    h1.inner-title #{products[0].title}
+                    br
+                    br
+                    if(products[0].category)
+                        div(class="inner-category")
+                            span Danh muc: 
+                            a(href=`/products/${products[0].category.slug}`) #{products[0].category.title}
+                    if(products[0].newprice)
+                        div.inner-price-new Gia moi:  <b>#{products[0].newprice}$</b>
+                    if(products[0].price)
+                        div.inner-price-old Gia cu:  <b>#{products[0].price}$</b>
+                    if(products[0].discountPercentage)
+                        div.inner-percent Giam toi: <b>#{products[0].discountPercentage}%</b>
+                    if(products[0].stock)
+                        div.inner-stock   con lai <span>#{products[0].stock} </span>  San pham
+                    form(
+                        action =`/cart/add/${products[0]._id}`
+                        method="POST"
+                    )
+                        input(type="number"
+                        class="form-control mb-2"
+                        name="quantity"
+                        value="1"
+                        min="1"
+                        max=products[0].stock
+                        )
+                        button(
+                            type="submit"
+                            class="btn btn-success btn-block"
+                        ) Them vao gia hang
+        
+        .container.my-5
+            .row 
+                .col-12     
+                    +box-head("mo ta san pham")
+                    .inner-desc  !{products[0].description}

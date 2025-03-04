@@ -3,6 +3,7 @@ const systeamCOnfig = require("../../config/system");
 const filterStatus = require("../../helpers/filter")
 const search = require("../../helpers/search");
 const pagePagination = require("../../helpers/pagePagination");
+const creata=require("../../helpers/creatTree")
 module.exports.products = async (req, res) => {
 
     let find = {
@@ -20,17 +21,17 @@ module.exports.products = async (req, res) => {
      //search form  
 
 
-     let objectPaginayion={
-        limitItem:4,
-        skip_page:0,
-        current_page:1,
-        totalPage:0
-      }
+    //  let objectPaginayion={
+    //     limitItem:4,
+    //     skip_page:0,
+    //     current_page:1,
+    //     totalPage:0
+    //   }
   
-      const totalProducts = await product_category.countDocuments(find);
+    //   const totalProducts = await product_category.countDocuments(find);
   
   
-      pagePagination(req.query,objectPaginayion,totalProducts);
+    //   pagePagination(req.query,objectPaginayion,totalProducts);
      
       //paginTION
 
@@ -51,19 +52,35 @@ module.exports.products = async (req, res) => {
      
   
       //select-sort
-    const record = await product_category.find(find).sort(sort).limit(objectPaginayion.limitItem).skip(objectPaginayion.skip_page);
+
+     
+    const record = await product_category.find(find).sort(sort);
+    const newRecord=creata.Tree(record);
     res.render("Admin/pages/products_category/index", {
         pagetitle: "danh sach danh muc ",
-        record: record,
+        record: newRecord,
         filterStatus: filterStatus(req.query),
         select_KEYVALUE:select_KEYVALUE,
-        Page_pagi:objectPaginayion,
+        // Page_pagi:objectPaginayion,
     });
 }
 
 module.exports.creat = async (req, res) => {
+
+  let find={
+    deleted: false
+  }
+
+
+  const record = await product_category.find(find);
+
+  const newRecord=creata.Tree(record);
+
+  // console.log(newRecord)
+  
     res.render("Admin/pages/products_category/create.pug", {
         pagetitle: "tao danh muc san pham ",
+        record:newRecord
     });
 }
 
@@ -127,20 +144,29 @@ module.exports.changeMutil= async(req,res)=>{
 
 module.exports.detail = async (req, res) => {
     try {
-
         let find = {
             _id: req.params.id
         };
         const record = await product_category.find(find);
+        
+        // Thêm kiểm tra xem record có tồn tại và có parent_id không
+        let newRecord = [];
+        if (record[0] && record[0].parent_id) {
+            let finds = {
+                _id: record[0].parent_id
+            };
+            newRecord = await product_category.find(finds);
+        }
+
         res.render("Admin/pages/products_category/detail", {
             products: record,
+            record: newRecord,
             pagetitle: " chi tiet danh muc ",
         });
-    } catch (erorr) {
-        console.log(erorr)
-        res.redirect(`${systeamCOnfig.prefixAdmin}/products_category`)
+    } catch (error) {
+        console.log(error);
+        res.redirect(`${systeamCOnfig.prefixAdmin}/products_category`);
     }
-
 }
 
 module.exports.repair = async (req, res) => {
@@ -149,9 +175,19 @@ module.exports.repair = async (req, res) => {
         let find = {
             _id: req.params.id
         };
+
+        let finds={
+          deleted: false
+        }
+
+        const records = await product_category.find(finds);
+      
         const record = await product_category.find(find);
+        const newRecord=creata.Tree(records);
+       
         res.render("Admin/pages/products_category/repair", {
             products: record,
+            record:newRecord,
             pagetitle: " sủa danh muc",
         });
     } catch (erorr) {

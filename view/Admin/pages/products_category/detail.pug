@@ -8,8 +8,8 @@ block main
         div.mb-4 
             img(src=`${products[0].thumbnail}`, alt=`${products[0].title}` class="mb-4")
     if(products[0].parent_id)
-        div.mb-4  perent_id:   
-            !=  products[0].parent_id
+        div.mb-4  perent_Name:   
+            !=  record[0].title
     if(products[0].status)
         div.mb-4 
             if(products[0].status=="true")

@@ -18,6 +18,17 @@ database.connect();
 const app = express();
 app.use(methodOverride('_method'));
 
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+//socket.io 
+const io = new Server(server);
+global._io=io;
+
+
+//socket.io
+
+
 //flash
 app.use(cookieParser('sdasdsa'));
 app.use(session({ cookie: { maxAge: 60000 }}));
@@ -46,6 +57,13 @@ app.use(express.static(`${__dirname}/public`))
 router(app)
 routerAdmin(app)
 
-app.listen(port, () => {
+app.get("*",(req,res)=>{
+  res.render("client/pages/error/404",{
+    pagetitle:"404 Not Found ",
+   
+});
+})
+
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })

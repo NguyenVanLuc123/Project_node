@@ -1,87 +1,96 @@
 extends ../../layout/default.pug
 include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
 block main 
+    if(role.permissions.includes("product-category_create"))
+        +alert-error(5000)
 
-    +alert-error(5000)
+        h1(class="mb-4") 
+            !=pagetitle 
 
-    h1(class="mb-4") 
-        !=pagetitle 
-
-    form(action=`${prefixAdmin}/products_category/create` 
-         id="form-create-product"
-         method="post" enctype="multipart/form-data"
-        )
-        div(class="form-group")
-            label(for="title") Tieu de 
-            input(
-                type="text" 
-                class="form-control" 
-                id="title" 
-                name="title" 
-                required
+        form(action=`${prefixAdmin}/products_category/create` 
+            id="form-create-product"
+            method="post" enctype="multipart/form-data"
             )
-        div(class="form-group")
-            label(for="parent_id") danh muc cha 
-            input(
-                type="text"
-                class="form-control"
-                id="parent_id"
-                name="parent_id"
-            )
-        div(class="form-group")
-            label(for="desc") Mo ta 
-            textarea(
-                class="form-control textarea_mce" 
-                id="desc" 
-                name="description" 
-                row="5"
-            ) 
-        div(class="form-group" upload-image)
-            label(for="thumbnail") Anh
-            input(
-                type="file" 
-                class="form-control-file" 
-                id="thumbnail" 
-                name="thumbnail" 
-                accept="image/*"
-                upload-image-input
-            )
-            img(id="thumbnail-preview" upload-image-preview style=" margin-top:10px;" width="200")
-        div(class="form-group")
-            label(for="position") Vi tri
-            input(
-                type="number" 
-                class="form-control" 
-                id="position" 
-                name="position" 
-                placeholder="Tu dong tang"
-                min="1"
-            )
-        div(class="form-group form-check form-check-inline")
-            input(
-                type="radio" 
-                class="form-check-input" 
-                id="statusActive" 
-                name="status" 
-                value="true"
-                checked
-            )
-            label(for="statusActive" class="form-check-lable") hoat dong
-        div(class="form-group form-check form-check-inline")
-            input(
-                type="radio" 
-                class="form-check-input" 
-                id="statusInactive" 
-                name="status" 
-                value="false"
-            )
-            label(for="statusInactive" class="form-check-lable") dung hoat dong
-        div(class="form-group")
-           button(
-            type="submit"
-            class="btn btn-primary"
-           ) tao moi
-
-    
+            div(class="form-group")
+                label(for="title") Tieu de 
+                input(
+                    type="text" 
+                    class="form-control" 
+                    id="title" 
+                    name="title" 
+                    required
+                )
+            div(class="form-group")
+                label(for="parent_id") danh muc cha 
+                //- input(
+                //-     type="text"
+                //-     class="form-control"
+                //-     id="parent_id"
+                //-     name="parent_id"
+                //- )
+                select(
+                    name="parent_id"
+                    id="parent_id"
+                    class="form-control"
+                    )
+                    option(value="") -- chon danh muc cha --
+                    if(record) 
+                    +select-tree(record)
+            div(class="form-group")
+                label(for="desc") Mo ta 
+                textarea(
+                    class="form-control textarea_mce" 
+                    id="desc" 
+                    name="description" 
+                    row="5"
+                ) 
+            div(class="form-group" upload-image)
+                label(for="thumbnail") Anh
+                input(
+                    type="file" 
+                    class="form-control-file" 
+                    id="thumbnail" 
+                    name="thumbnail" 
+                    accept="image/*"
+                    upload-image-input
+                )
+                img(id="thumbnail-preview" upload-image-preview style=" margin-top:10px;" width="200")
+            div(class="form-group")
+                label(for="position") Vi tri
+                input(
+                    type="number" 
+                    class="form-control" 
+                    id="position" 
+                    name="position" 
+                    placeholder="Tu dong tang"
+                    min="1"
+                )
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio" 
+                    class="form-check-input" 
+                    id="statusActive" 
+                    name="status" 
+                    value="true"
+                    checked
+                )
+                label(for="statusActive" class="form-check-lable") hoat dong
+            div(class="form-group form-check form-check-inline")
+                input(
+                    type="radio" 
+                    class="form-check-input" 
+                    id="statusInactive" 
+                    name="status" 
+                    value="false"
+                )
+                label(for="statusInactive" class="form-check-lable") dung hoat dong
+            div(class="form-group")
+            button(
+                type="submit"
+                class="btn btn-primary"
+            ) tao moi
 
         
+
+            

@@ -79,3 +79,84 @@ table{
    }
 }
 /*End show_alert */
+
+/* Login Form Styles - NiceAdmin Theme */
+.login-form {
+  max-width: 450px;
+  margin: 30px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 30px rgba(1, 41, 112, 0.1);
+}
+
+.login-form h1 {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  color: #012970;
+  margin-bottom: 25px;
+}
+
+.login-form .form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.login-form .form-group label {
+  color: #012970;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.login-form .form-control {
+  height: 44px;
+  width: 100%;
+  border: 1px solid #dee2e6;
+  padding: 0 15px;
+  font-size: 14px;
+  border-radius: 4px;
+  box-shadow: none;
+  background: #f6f9ff;
+  box-sizing: border-box;
+}
+
+.login-form .form-control:focus {
+  border-color: #4154f1;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(65, 84, 241, 0.1);
+}
+
+.login-form .btn-primary {
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #4154f1;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.3s;
+  height: 44px;
+  margin-top: 10px;
+}
+
+.login-form .btn-primary:hover {
+  background: #5969f3;
+  transform: translateY(-1px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .login-form {
+    margin: 15px;
+    padding: 20px;
+  }
+}
+
+/* Optional: Add this if you want to style the background */
+body.login-page {
+  background-color: #f6f9ff;
+}

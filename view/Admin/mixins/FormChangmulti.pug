@@ -10,8 +10,10 @@ mixin form-chang-multi(path)
                     option(disabled selected) -- chọn hành động -- 
                     option(value="true") Hoat Dong 
                     option(value="false") Dung hoat dong
-                    option(value="delete") xoa san pham  
-                    option(value="change-position") thay doi vi tri
+                    if(role.permissions.includes("product_delete"))
+                        option(value="delete") xoa san pham  
+                    if(role.permissions.includes("product_edit"))
+                        option(value="change-position") thay doi vi tri
             .form-group 
                 input(
                 type="text"
@@ -36,8 +38,10 @@ mixin form-chang_category-multi(path)
                     option(disabled selected) -- chọn hành động -- 
                     option(value="true") Hoat Dong 
                     option(value="false") Dung hoat dong
-                    option(value="delete") xoa danh muc  
-                    option(value="change-position") thay doi vi tri
+                    if(role.permissions.includes("product-category_delete"))
+                        option(value="delete") xoa danh muc  
+                    if(role.permissions.includes("product-category_edit"))
+                        option(value="change-position") thay doi vi tri
             .form-group 
                 input(
                 type="text"

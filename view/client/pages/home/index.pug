@@ -1,5 +1,20 @@
 extends ../../layout/default
-
+include ../../mixins/box-head.pug
+include ../../mixins/produc-grid.pug
+include ../../mixins/alert.pug
 block main 
-
-    h1 trang chu 
+    
+    .container.my-3 
+        +alert-error(5000)
+        .row        
+            +box-head("Danh sach san pham noi bat")
+    
+        .row 
+           +product-grid( feature_products)
+    
+    .container.my-3 
+        .row        
+            +box-head("Danh sach san pham moi nhat ")
+    
+        .row 
+           +product-grid( productsNew)

@@ -1,0 +1,78 @@
+extends ../../layout/default.pug 
+include ../../mixins/alert.pug
+block main 
+    +alert-success(5000)
+    +alert-error(5000)
+    h1(class="mb-4")  #{pagetitle}
+
+    form(action=`${prefixAdmin}/setings/general?_method=PATCH` 
+            method="POST" enctype="multipart/form-data"
+            )
+            div(class="form-group")
+                label(for="WebsiteName") Ten Website
+                input(
+                    type="text" 
+                    class="form-control" 
+                    id="WebsiteName" 
+                    name="WebsiteName" 
+                    value=record ? record.WebsiteName : " "
+                )
+            div(class="form-group" upload-image)
+                label(for="logo") Logo
+                input(
+                    type="file" 
+                    class="form-control-file" 
+                    id="logo" 
+                    name="logo" 
+                    accept="image/*"
+                    upload-image-input
+                )
+                img(id="image-preview" src=record ? record.logo : "/" upload-image-preview style=" margin-top:10px;" width="200")
+            div(class="form-group")
+                label(for="phone") So dien thoai
+                input(
+                    type="text" 
+                    class="form-control" 
+                    id="phone" 
+                    name="phone"  
+                    value=record ? record.phone : " "  
+                )
+                
+            div(class="form-group")
+                label(for="email") Email
+                input(
+                    type="email" 
+                    class="form-control" 
+                    id="email" 
+                    name="email" 
+                    value=record ? record.email : " "   
+                )
+            div(class="form-group")
+                label(for="address") Dia chi
+                input(
+                    type="text" 
+                    class="form-control" 
+                    id="address" 
+                    name="address" 
+                    value=record ? record.address : " "   
+                )
+            div(class="form-group")
+                label(for="copyright") CopyRight
+                input(
+                    type="text" 
+                    class="form-control" 
+                    id="copyright" 
+                    name="copyright"
+                    value=record ? record.copyright : " "   
+                )
+            div(class="showAddress")
+                !=record ? record.address : " "
+            div(class="form-group")
+                button(
+                    type="submit"
+                    class="btn btn-primary"
+                ) Cap Nhat
+
+        
+
+            

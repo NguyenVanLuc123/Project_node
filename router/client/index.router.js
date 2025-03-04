@@ -1,8 +1,25 @@
 const productRouter = require("./product.router.js")
 const homeRouter = require("./home.router.js")
+const categorysMiddlewares=require("../../middlewares/client/category.middlewares.js")
+const SearchRouter = require("./search.router.js")
+const cartmiddlewares=require("../../middlewares/client/cart.middlewares.js")
+const cartRouter=require("./cart.router.js")
+const checkoutRouter=require("./checkout.router.js")
+const userRouter= require("./user.router.js")
+const chatRouter=require("./chat.router.js")
+const authMiddleware=require('../../middlewares/client/auth.middleware.js')
+const infouser=require("../../middlewares/client/userinfo.js")
+const setingmiddleware=require("../../middlewares/client/seting.middlewares.js")
 module.exports = (app)=>{
+    app.use(categorysMiddlewares.categorys)
+    app.use(cartmiddlewares.cartid)
+    app.use(infouser.infouser)
+    app.use(setingmiddleware.settingGeneral)
     app.use('/',homeRouter )
-     
+    app.use("/cart",cartRouter)
+    app.use('/search',SearchRouter )
     app.use('/products',productRouter)
+    app.use('/checkout',checkoutRouter)
+    app.use('/user',userRouter)
+    app.use('/chat',authMiddleware.userinfo,chatRouter)
 }
-

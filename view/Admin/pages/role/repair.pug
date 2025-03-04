@@ -1,0 +1,47 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+block main 
+    if(role.permissions.includes("roles_edit"))
+        +alert-error(5000)
+
+        h1(class="mb-4") 
+            != pagetitle
+        form(action=`${prefixAdmin}/roles/repair/${record[0]._id}?_method=PATCH` 
+            id="form-create-permission"
+            method="post" 
+        )
+            div(class="form-group")
+                label(for="_id") ID
+                input(
+                    type="text" 
+                    class="form-control" 
+                    id="_id" 
+                    name="_id"
+                    value=record[0]._id
+                    readonly
+                )
+            div(class="form-group")
+                label(for="title") Tieu de 
+                input(
+                    type="text" 
+                    class="form-control" 
+                    id="title" 
+                    name="title"
+                    value=record[0].title 
+                    required
+                )
+            div(class="form-group")
+                label(for="desc") Mo ta 
+                input(
+                    type="text"
+                    class="form-control" 
+                    id="desc" 
+                    value=record[0].description
+                    name="description" 
+                )
+            div(class="form-group")
+            button(
+                type="submit"
+                class="btn btn-primary"
+            ) Update

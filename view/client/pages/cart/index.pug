@@ -1,0 +1,81 @@
+extends ../../layout/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/alert.pug
+
+block main  
+   
+    +alert-success(5000)
+    +alert-error(5000)
+    .container.my-3 
+        .row 
+            .col-12 
+                +box-head("gio hang")
+
+        .row 
+            .col-12
+                table(
+                    class="table table-bordered" checkbox-multi
+                    ) 
+                    thead 
+                        tr 
+                            th  
+                                input(type="checkbox" name="checkAll")
+                            th STT 
+                            th Hinh anh     
+                            th Ten
+                            th Gia 
+                            th So luong
+                            th Tong tien 
+                            th Hanh dong 
+                    tbody
+                        if(cartDetail.products.length > 0)
+                            each item, index in cartDetail.products
+                                tr 
+                                    td 
+                                        input(type="checkbox" name="id" value=item.product_id  )
+                                    td 
+                                        != index + 1
+                                    td
+                                        img(src=item.productInfo[0].thumbnail , alt="" width="100px" height="auto")
+                                    td
+                                        a(href=`/products/detail/${item.productInfo[0].slug}`) #{item.productInfo[0].title}
+                                    td
+                                        != item.productInfo[0].newprice
+                                    td
+                                        input(
+                                            type="number"
+                                            name="quantity"
+                                            value=item.quantity 
+                                            min="1"
+                                            class="quantity-input"
+                                            data-product-id=item.product_id 
+                                            style="width:60px"
+                                        )
+                                    td #{item.productInfo[0].newprice * item.quantity} $
+                                    td
+                                        a(class="btn btn-danger" href=`/cart/delete/${item.product_id}`) Xoa
+                        else
+                            p Khong co san pham nao
+                h3(class="text-right")  Tong don hang : #{totalPrice_products}$
+                form(
+                    action="/checkout"
+                    method="GET"
+                    form-checkout
+                     )
+                    .d-flex.align-items-start   
+                    .form-group     
+                        div(class="text-right mt-3")
+                            button(type="submit" class="btn btn-success") Thanh toan 
+                        
+                    .form-group 
+                        input(
+                        type="text"
+                        name="ids"
+                        value=""
+                        class="form-control"
+                        style="display: none;"
+                        )
+    // Form ẩn
+    form#hiddenForm(method="POST" style="display: none;" action="")
+        input(type="hidden" name="quantity" id="hiddenQuantity")
+        input(type="hidden" name="productId" id="hiddenProductId")

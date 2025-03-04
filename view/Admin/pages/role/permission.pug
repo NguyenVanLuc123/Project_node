@@ -1,0 +1,55 @@
+extends ../../layout/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/permission_fuc.pug
+block main 
+    if(role.permissions.includes("roles_view"))
+        +alert-success(5000)
+        h1 
+            != pagetitle
+        if(record)
+            div(class="text-right")
+                button(
+                    type="submit"
+                    class="btn btn-primary mb-3"
+                    button-submit 
+                ) Cap nhat 
+
+            div(data-permission=record)
+
+            table(
+                class="table table-hover table-sm"
+                table-permission
+            )
+                thead   
+                    tr  
+                        th tinh nang 
+                        each item in record
+                            th(class="text-center") #{item.title} 
+                    
+                tbody
+                    tr(data-name="id" style="display: none") 
+                        td
+                            each item in record
+                                td(class="text-center")
+                                    input(type="text" value=item.id) 
+                    //-Danh muc san pham 
+                    +permission_fuc("product-category",record)
+                    //- san pham 
+                    +permission_fuc("product",record)
+                    //-nhom quyen
+                    +permission_fuc("roles",record)
+
+                    +permission_fuc("Accounts",record)
+            
+        form(
+            id="form-change-permissions"
+            method="POST"
+            action=`${prefixAdmin}/roles/permission?_method=PATCH`
+            style="display: none"
+        )
+            div(class="form-group")
+                input(type="text"
+                class="form-control"
+                name="permission"
+                )
+        script(src="/admin/js/roles.js")

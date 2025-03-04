@@ -6,6 +6,7 @@ if(buttonChangeStatus.length>0){
     const path =formChangStatus.getAttribute("data-path");
     buttonChangeStatus.forEach(item=>{
         item.addEventListener('click',()=>{
+            console.log(1);
             const Status=item.getAttribute('data-status');
             const ID=item.getAttribute('data-id');
 
@@ -33,7 +34,7 @@ if(Button_delete.length >0){
     const path =form_delete_product.getAttribute("data-path");
     Button_delete.forEach(item=>{
         item.addEventListener('click',()=>{
-            const isconfirm=confirm ("bạn có chắc chắn muốn xóa sản phẩm này không");
+            const isconfirm=confirm ("bạn có chắc chắn muốn xóa không");
             if(isconfirm){
                 const ID_delete=item.getAttribute("data-id");
                 form_delete_product.action=path+`/${ID_delete}?_method=DELETE`;

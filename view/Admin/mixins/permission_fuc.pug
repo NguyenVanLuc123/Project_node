@@ -1,0 +1,25 @@
+mixin permission_fuc(name,record)
+    tr      
+        td(colspan="4")
+            h6 
+                b #{name} 
+    tr(data-name=`${name}_view`) 
+        td Xem 
+        each item in record
+            td(class="text-center")
+                input(type="checkbox")
+    tr(data-name=`${name}_create`) 
+        td Them moi 
+        each item in record
+            td(class="text-center")
+                input(type="checkbox")
+    tr(data-name=`${name}_edit`) 
+        td Chinh sua 
+        each item in record
+            td(class="text-center")
+                input(type="checkbox")
+    tr(data-name=`${name}_delete`) 
+        td Xoa 
+        each item in record
+            td(class="text-center")
+                input(type="checkbox")

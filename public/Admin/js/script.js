@@ -190,6 +190,7 @@ if(upload_image){
 
     input_imge.addEventListener("change",(e)=>{
         const file=e.target.files[0];
+        
         if(file){
             preview_image.src=URL.createObjectURL(file);
         }
@@ -218,3 +219,4 @@ form_control.addEventListener("change", function() {
 
 
 //END sort_select
+

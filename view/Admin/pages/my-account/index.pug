@@ -1,0 +1,22 @@
+extends ../../layout/default.pug 
+
+block main 
+    h1(class="mb-4") Thông tin cá nhân
+
+    if(user.avatar )
+        img(src=user.avatar,alt="avatar",class="img-fluid rounded-circle")
+    else 
+        img(src="admin/images/avatar.png",alt="avatar",class="img-fluid rounded-circle")
+    if(user.fullName)
+        p Họ Tên: <b> #{user.fullName} </b>
+    if(user.email)
+        p Email: <b> #{user.email} </b>
+    if(user.phone)
+        p Số điện thoại: <b> #{user.phone} </b>
+    p
+        span Trạng thái: 
+        span
+            <b>#{user.status==="true"?"Hoạt động":"Không hoạt động"}</b>
+    if(role.title)
+        p Vai trò: <b> #{role.title} </b>
+    a(href=`${prefixAdmin}/my-account/edit/${user._id}` class="btn btn-primary") Sửa thông tin

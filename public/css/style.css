@@ -34,6 +34,18 @@ body{
     width: 80%;
     height: 80%;
 }
+
+.inner-img .inner-featured{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: green;
+    color: #FFF;
+    padding: 3px 6px;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 8px;
+}
 .inner-title{
     height: 50px;
     
@@ -44,11 +56,12 @@ body{
 .inner-price-old {
     color: red;
     position: relative;
+    width: max-content;
 }
 .inner-price-old::after {
     content: ''; 
     height: 100%;
-    width: 12%;
+    width: 100%;
     position: absolute; 
     left: 0;
     top: -45%; 
@@ -74,3 +87,307 @@ footer {
     align-items: center;
     justify-content: center;
 }
+
+/* sub-menu */
+.sub-menu{
+    position: relative;
+    z-index: 999;
+}
+.sub-menu ul{
+    position: absolute;
+    right: 0;
+    top:100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: #FFF;
+    min-width: 150px;
+    display: none;
+}
+
+.sub-menu ul li{
+    padding: 10px;
+    border-bottom: 1px solid #ddd ;
+}
+.sub-menu:hover >ul{
+    display: block;
+}
+.sub-menu ul li{
+    position: relative;
+}
+
+.sub-menu ul li ul{
+    right: 100%;
+    top: 0;
+}
+.sub-menu ul li:hover > ul{
+    display: block;
+}
+/* end sub-menu */
+
+
+/* show_alert */
+[show-alert]{
+    position: fixed;
+    top: 70px;
+    right:15px;
+    z-index: 99999;
+ }
+ 
+ [show-alert].alert-hidden{
+    animation-name: alert-hidden ;
+    animation-duration: 0.5s;
+    animation-fill-mode:both ;
+ }
+ 
+ @keyframes alert-hidden{
+    from{
+       right:15px;
+    }
+    to{
+       right: -100%;
+       display: none;
+    }
+ }
+ /*End show_alert */
+
+ /* product-detail */
+.product-detail .inner-thumb img{
+    width:100%;
+    height:auto;
+}
+.product-detail .inner-title{
+    font-size: 32px;;
+    margin-bottom: 15px;
+}
+
+.product-detail .inner-category{
+    margin-bottom: 10px;
+}
+
+.product-detail .inner-price-new{
+    color: green;
+    font-weight: 600;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.product-detail .inner-price-old{
+    color: red;
+    font-weight: 600;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.product-detail .inner-percent{
+    margin-bottom: 10px;
+}
+.product-detail .inner-percent span{
+    color: #FFF;
+    background: red;
+    font-weight: 600;
+    display: inline-block;
+    padding: 3px 6px;
+    border-radius: 9px;
+}
+.product-detail .inner-stock{
+    margin-bottom: 10px;
+}
+.product-detail .inner-stock span{
+    color: #FFF;
+    background: green;
+    font-weight: 600;
+    display: inline-block;
+    padding: 3px 6px;
+    border-radius: 9px;
+}
+/* 
+ end product-detail */
+
+
+
+
+ /* Romantic Messenger Chat Frame - tông màu hồng yêu đương */
+
+/* Container của chat với id merlin-chat */
+.chat {
+    max-width: 600px;
+    margin: 80px auto 20px;
+    background: linear-gradient(135deg, #fff0f6, #ffe3ec);
+    border: 2px solid #ffcedd;
+    border-radius: 12px;
+    position: relative;
+    height: 380px;
+    box-shadow: 0 4px 12px rgba(255, 182, 193, 0.4);
+    overflow-y: scroll;
+    scrollbar-width: none; /* Ẩn trên Firefox */
+    -ms-overflow-style: none; /* Ẩn trên IE/Edge */
+}
+
+.chat::-webkit-scrollbar {
+    display: none; /* Ẩn trên Chrome, Safari */
+}
+
+/* Phần thân chat chứa tin nhắn */
+.inner-body {
+    flex: 1;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: max-content; /* Đảm bảo chiều cao phù hợp */
+    min-height: 320px;
+    width: 100%;
+}
+
+
+/* Style chung cho bong tin nhắn */
+.inner-incoming,
+.inner-outgoing {
+    max-width: 70%;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 18px;
+    word-wrap: break-word;
+    border: 1px solid transparent;
+}
+
+/* Tin nhắn đến (incoming) - căn trái, nền hồng nhạt */
+.inner-incoming {
+    background: linear-gradient(90deg, #ffe4e6, #ffc1c5);
+    align-self: flex-start;
+    color: #333;
+    border-color: #ffcedd;
+}
+
+/* Làm nổi bật tên người gửi (dành cho tin nhắn đến) */
+.inner-incoming .inner-name {
+    font-weight: 900;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #ff1493; /* hot pink */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Tin nhắn đi (outgoing) - căn phải, nền hồng đậm hơn */
+.inner-outgoing {
+    background: linear-gradient(90deg, #ff6384, #ff3c6b);
+    align-self: flex-end;
+    color: #fff;
+    border-color: #ff87a3;
+}
+
+/* Phần chân chat chứa ô nhập và nút gửi */
+.inner-foot {
+    border-top: 1px solid #ffcedd;
+    padding: 10px;
+    background-color: #fff0f5;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    position: sticky;
+    z-index: 99;
+    width: 100%;
+    bottom: 0%;
+}
+
+/* Form trong chân chat */
+.inner-form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 5px;
+}
+
+/* Ô nhập tin nhắn */
+.inner-form input[type="text"] {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ffcedd;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.inner-form input[type="text"]:focus {
+    border-color: #ff3c6b;
+}
+
+/* Nút gửi */
+.inner-form button {
+    background-color: #ff3c6b;
+    border: none;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 50%;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.inner-form button:hover {
+    background-color: #e63260;
+    transform: scale(1.05);
+}
+
+/* emoji */
+.tooltip{
+    visibility: hidden;
+}
+.tooltip.shown {
+    visibility: visible;
+    opacity: 1;
+}
+/* 
+typing */
+.box-typing{
+background: linear-gradient(90deg, #ffe4e6, #ffc1c5);
+align-self: flex-start;
+color: #333;
+border-color: #ffcedd;
+max-width: 30%;
+padding: 10px 15px;
+margin-bottom: 10px;
+border-radius: 18px;
+word-wrap: break-word;
+border: 1px solid transparent;
+}
+.box-typing .inner-name {
+    font-weight: 900;
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #ff1493; /* hot pink */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+.ineer-dots {
+    display: flex;
+    width: 35px;
+    height: 20px;
+    align-items: center;
+    
+}
+
+.ineer-dots span {
+    width: 5px;
+    height: 5px;
+    margin: 0 3px;
+    background-color: black;
+    border-radius: 50%;
+    animation: bounce 1.5s infinite ease-in-out;
+}
+
+.ineer-dots span:nth-child(1) { animation-delay: 0s; }
+.ineer-dots span:nth-child(2) { animation-delay: 0.2s; }
+.ineer-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+}
+
+/* end typing */

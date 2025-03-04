@@ -1,12 +1,45 @@
+include ../mixins/sub-menu.pug
 header
+
     .container 
         div(class="inner-header row align-items-center")
             div(class="inner-logo col-3 ")
-                img(src="/img/logo.svg", alt="")
-            div(class="inner-menu col-9")
+                img(src=setingGeneral ? setingGeneral.logo : "ADMIN", alt="",  style="width: 100px; height: auto;")
+            .col-4 
+                form(action="/search" method="GET")
+
+                    div(class="form-group d-flex mb-0")
+                        input(
+                            type="text"
+                            placeholder="Nhap tu khoa ..."
+                            class="form-control"
+                            name="keyword"
+                            value=keyword
+                        )
+                        button(type="submit"
+                        class="btn btn-primary"
+                        ) Tim
+            div(class="inner-menu col-5")
+                
                 ul 
                     li 
                         a(href="/")  trang chu   
-                    li   
-                        a(href="/products") san pham 
-
+                    li(class="sub-menu")
+                        -const pathProduct ="/products"   
+                        a(href=pathProduct) san pham 
+                            +sub-menu(layoutProductsCategory,pathProduct)
+                    li 
+                        - var totalQuantity = userCart ? userCart.totalQuantity : (Cart ? Cart.totalQuantity : 0)
+                        a(href="/cart") Gio hang (#{totalQuantity})
+                    if(!user)
+                        li 
+                            a(href="/user/register") Dang ky
+                        li 
+                            a(href="/user/login") Dang nhap
+                    else 
+                        li 
+                            a(href="/user/ logout") Dang xuat
+                        li 
+                            a(href="/chat") Chat
+                        li 
+                            a(href="/user/info") #{user.fullName}

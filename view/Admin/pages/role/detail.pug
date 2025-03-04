@@ -1,0 +1,11 @@
+extends ../../layout/default.pug 
+
+block main 
+
+    if(record[0].title)
+        h1.mb-4  #{record[0].title}
+    if(record[0].description)
+        div.mb-4  
+            != record[0].description
+    
+    a( href=`${prefixAdmin}/roles/repair/${record[0]._id}` class="btn btn-warning btn-sm"  ) chinh Sua
