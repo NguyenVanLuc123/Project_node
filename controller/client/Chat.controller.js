@@ -1,37 +1,18 @@
 const chatmodel= require("../../model/chat.model")
 const usermodel=require("../../model/user.model")
+
+const chatsocket =require("../../socket_io/client/chat.socket");
 module.exports.index = async (req, res) => {
     const userId=res.locals.user.id;
     const fullName=res.locals.user.fullName;
-    //socket.io
-    _io.once('connection', (socket) => {
-        console.log('a user connected',socket.id);
-        
-      socket.on('CLIENT_SEND_MESSAGE',async (content)=>{
-          const chat =new chatmodel({
-            user_id:userId,
-            content:content
-          });
-          await chat.save();
 
-          //tra dât ve cho client
-          _io.emit("SERVER_RETURN_MESSGAE",{
-            userId:userId,
-            fullName:fullName,
-            content:content
-          })
-        })
-        socket.on("CLENT_SEND_TYPING",(type)=>{
-          socket.broadcast.emit("SERVER_RETURN_TYPING",{
-            userId:userId,
-            fullName:fullName,
-            type:type
-          })
-        });
-      });
-      
+    const roomChatid=req.params.roomChatid;
+    //socket.io
+   chatsocket.clientMasage(req,res);
+       //end sokcet.io
 
       const chats=await chatmodel.find({
+        room_chat_id:roomChatid,
         deleted:false
       });
 
@@ -41,9 +22,10 @@ module.exports.index = async (req, res) => {
         }).select("fullName");
         chat.infoUser=infoUser;
       }
-    //end sokcet.io
+   
     res.render("client/pages/chat/index", {
         pagetitle: "Chat",
-        chats:chats
+        chats:chats,
+        roomChatid:roomChatid
     });
 };

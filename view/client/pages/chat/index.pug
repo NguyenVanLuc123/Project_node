@@ -1,42 +1,51 @@
 extends ../../layout/default.pug
 include ../../mixins/box-head.pug
 
-
 block main  
-   .container.my-3 
+   .container.my-3
+        include ../../partials/listLinkUser 
         .row    
             .col-12 
                 +box-head("chat")
-
         .row 
             .col-12 
-                .chat(my-id=user.id id="chatBox")
+                .chat(my-id=user.id id="chatBox" roomChatid=roomChatid)
                     .inner-body
                         each chat in chats  
-                            div(class=(chat.infoUser.id==user.id?"inner-outgoing":"inner-incoming")) 
-                                if chat.infoUser.id!=user.id
-                                 .inner-name #{chat.infoUser.fullName} 
-                                .inner-content 
-                                    | #{chat.content}
+                            div(class=(chat.infoUser.id==user.id ? "inner-outgoing" : "inner-incoming")) 
+                                if chat.infoUser.id != user.id
+                                    .inner-name #{chat.infoUser.fullName} 
+                                if chat.content
+                                    .inner-content 
+                                        | #{chat.content}
+                                if chat.images 
+                                    .inner-images
+                                        each image in chat.images
+                                            img(src=image class="chat-img" alt="Hình ảnh")
                         div(class="inner-list-typing")
                     .inner-foot
-                        form(
-                            class="inner-form"
-                            action=""
-                        )
+                        form(class="inner-form" action="")
                             input(
                                 type="text"
-                                placeholder="nhap noi dung..."
+                                placeholder="Nhập nội dung..."
                                 name="content"
                             )
-                            div(class="custom-file-container" data-upload-id="upload-img")
                             span(class="button-icon btn btn-light mx-2") 
                                 i(class="fa-regular fa-face-smile")
-
+                            span(class="upload") 
+                                i(class="fa-solid fa-upload")
                             button(class="chat_button") 
                                 i.fa-solid.fa-paper-plane
+
+        // Modal hiển thị ảnh lớn
+        #imageModal(class="modal hidden")
+            .modal-content
+                span.close-btn &times;
+                img#modalImg
+
         div(class="tooltip" role="tooltip")
-         emoji-picker
+            emoji-picker
+        div(class="custom-file-container" data-upload-id="upload-img")
 
-
-        
+        block script 
+            script(type="module" src="/js/chat.js")

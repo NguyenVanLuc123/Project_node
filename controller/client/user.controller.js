@@ -68,6 +68,16 @@ module.exports.loginPost=async(req,res)=>{
         return;
     }
 
+    await userModel.updateOne({
+        _id:user.id
+    },
+    {statusOnline:"online"});
+
+    _io.once('connection', (socket) => {
+        
+            socket.broadcast.emit("SERVER_RETURN_CHECK_ONLINE", {
+               user_id:user.id });
+    });
     //luu user id vao model Carts
     
     const cartDefault= await cartModel.findOne({ _id:req.cookies.cartId});
@@ -101,7 +111,23 @@ module.exports.loginPost=async(req,res)=>{
     res.redirect("/")
 }
 
-module.exports.logout=(req,res)=>{
+module.exports.logout= async(req,res)=>{
+    const user= await userModel.findOne({
+        token:req.cookies.token_user,
+        deleted:false
+    }).select("-password");
+    if(user){
+    await userModel.updateOne({
+        _id:user.id
+    },
+    {statusOnline:"offline"})
+
+    _io.once('connection', (socket) => {
+        
+        socket.broadcast.emit("SERVER_RETURN_CHECK_OFFLINE", {
+           user_id:user.id });
+});
+}
     res.clearCookie("token_user");
     res.redirect("/")
 }

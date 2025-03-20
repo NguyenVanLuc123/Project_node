@@ -8,7 +8,7 @@ const chatsSchema =new mongoose.Schema(
        user_id:String,
        room_chat_id: String,
        content:String,
-       images:String,
+       images:[{ type: String }],
        deleted:{
         type:Boolean,
         default:false

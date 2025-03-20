@@ -114,3 +114,30 @@ if(formCheckMulti){
     })
 }
 
+// click-image
+document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImg");
+    const closeBtn = document.querySelector(".close-btn");
+
+    document.querySelectorAll(".chat-img").forEach(img => {
+        img.addEventListener("click", function () {
+            modal.style.display = "flex"; // Hiển thị modal
+            modalImg.src = this.src; // Gán ảnh vào modal
+        });
+    });
+
+    closeBtn.addEventListener("click", function () {
+        modal.style.display = "none"; // Đóng modal
+    });
+
+    modal.addEventListener("click", function (e) {
+        if (e.target === modal) {
+            modal.style.display = "none"; // Đóng khi click ra ngoài
+        }
+    });
+});
+
+
+//end click image
+

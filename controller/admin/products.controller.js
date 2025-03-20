@@ -74,7 +74,9 @@ module.exports.products= async(req,res) =>{
       const updateBy= item.updatedBy.slice(-1)[0];
       if(updateBy){
       const userUpdateed= await account.findOne({_id:updateBy.account_id});
+      if(userUpdateed){
       updateBy.account_name=userUpdateed.fullName;
+      }
       }
      
     }

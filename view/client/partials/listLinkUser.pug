@@ -1,0 +1,22 @@
+.row 
+    .col-12 
+        a(
+            class="btn btn-primary m-1"
+            href="/users/not-friends"
+        ) Danh sach nguoi dung
+        a(
+            class="btn btn-primary m-1"
+            href="/users/friends"
+        ) Danh sach ban be
+        a(
+            class="btn btn-primary m-1"
+            href="/users/request"
+        ) Loi moi da gui
+        a(
+            class="btn btn-primary m-1"
+            href="/users/accept"
+        ) loi moi ket ban
+            span(
+                class="badge badge-light" style="margin-left: 10px"
+                badge-users-accept=user.id
+            ) #{user.acceptFriend.length}

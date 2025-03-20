@@ -1,19 +1,13 @@
+
 //client send message
 import * as Popper from 'https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js'
-//FileUploadWithPreview
-document.addEventListener("DOMContentLoaded", function () {
-    setTimeout(() => {
-        if (typeof FileUploadWithPreview !== "undefined") {
-            const upload = new FileUploadWithPreview.FileUploadWithPreview('upload-img',{
-                multiple:true,
-                maxfileCount:6
-            });
-            console.log("FileUploadWithPreview đã khởi tạo thành công!");
-        } else {
-            console.error("FileUploadWithPreview chưa được tải đúng cách.");
-        }
-    }, 1000); // Chờ 1 giây để thư viện chắc chắn đã tải xong
+
+       
+const upload = new FileUploadWithPreview.FileUploadWithPreview('upload-img',{
+    multiple:true,
+    maxfileCount:6
 });
+    
 
 
 
@@ -22,11 +16,18 @@ const formsenData = document.querySelector(".chat .inner-form");
 if (formsenData) {
     formsenData.addEventListener("submit", (e) => {
         e.preventDefault();
+        
         const content = e.target.elements.content.value;
         const images= upload.cachedFileArray ||[];
+        console.log(images);
         if (content|| images.length>0) {
-            socket.emit("CLIENT_SEND_MESSAGE", content);
+            
+            socket.emit("CLIENT_SEND_MESSAGE", {
+                content:content,
+                images:images
+            });
             formsenData.reset(); 
+            upload.resetPreviewPanel();
             socket.emit("CLENT_SEND_TYPING", "hidden");
            
         }
@@ -42,6 +43,8 @@ socket.on("SERVER_RETURN_MESSGAE", (data) => {
     const id_user = document.querySelector("[my-id]").getAttribute("my-id")
     const boxTyping=document.querySelector(".inner-list-typing");
     let fullName = "";
+    let htmlcontent="";
+    let htmlimages="";
     if (id_user != data.userId) {
         div.classList.add("inner-incoming");
         fullName = `<div class="inner-name">${data.fullName}</div>`
@@ -49,9 +52,23 @@ socket.on("SERVER_RETURN_MESSGAE", (data) => {
     else {
         div.classList.add("inner-outgoing");
     }
+    if(data.content){
+        htmlcontent=`
+   <div class="inner-content">${data.content}</div>
+    `;
+    }
+    if(data.images){
+        htmlimages +=`<div class="inner-images">`;
+        for(const image of data.images){
+        htmlimages+=`<img src="${image}">`
+        };
+
+        htmlimages+=`</div>`
+    }
     div.innerHTML = `
     ${fullName}
-    <div class="inner-content">${data.content}</div>
+    ${htmlcontent}
+    ${htmlimages}
     `;
 
 
@@ -78,6 +95,20 @@ if (button) {
     Popper.createPopper(button, tooltip);
     button.onclick = () => {
         tooltip.classList.toggle('shown')
+    }
+}
+
+const upload_button = document.querySelector('.upload')
+if(upload_button){
+    const custom_file_container =document.querySelector('.custom-file-container');
+    upload_button.onclick=()=>{   
+            if (custom_file_container.classList.contains('upload-show')) {
+                custom_file_container.classList.remove('upload-show');
+                custom_file_container.classList.add('upload-hidden');
+            } else {
+                custom_file_container.classList.remove('upload-hidden');
+                custom_file_container.classList.add('upload-show');
+            }
     }
 }
 //show popup
