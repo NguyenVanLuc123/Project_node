@@ -10,6 +10,7 @@ const chatRouter=require("./chat.router.js")
 const authMiddleware=require('../../middlewares/client/auth.middleware.js')
 const infouser=require("../../middlewares/client/userinfo.js")
 const setingmiddleware=require("../../middlewares/client/seting.middlewares.js")
+const roomchatRouter= require("./room_chat.router.js")
 const usersRouter= require("./users.router.js")
 module.exports = (app)=>{
     app.use(categorysMiddlewares.categorys)
@@ -24,4 +25,5 @@ module.exports = (app)=>{
     app.use('/user',userRouter)
     app.use('/users',authMiddleware.userinfo,usersRouter)
     app.use('/chat',authMiddleware.userinfo,chatRouter)
+    app.use("/room-chat",authMiddleware.userinfo,roomchatRouter)
 }

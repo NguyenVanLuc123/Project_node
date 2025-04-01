@@ -1,0 +1,41 @@
+extends ../../layout/default
+include ../../mixins/box-head.pug
+
+block main 
+    
+    .container.my-3 
+        .row 
+            .col-12       
+                +box-head("Room-chat")
+        .row.mb-3 
+            .col-12 
+                a(
+                    href="/room-chat/create"
+                    class="btn btn-sm btn-success mr-1"
+                ) Tao phong chat 
+        
+        row     
+            .col-6 
+                div(class="box-room")
+                    each room in listRoom
+                        div(class="inner-avartar")
+                            if room.avatar
+                                img(
+                                    src=user.avatar
+                                    alt=room.title
+                                )
+                            else 
+                                img(
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU9aiLd1yNA54b4JMz0U7ORLGRDO3Z2T3fZg&s"
+                                    alt=room.title
+                                )
+                        div(class="inner-info")
+                            div(class="inner-name") #{room.title}
+                            div(class="inner-buttons")
+                                a(
+                                    href=`/chat/${room._id}`
+                                    class="btn btn-sm btn-primary mr-1"
+                                    
+                                ) Nhan tin
+                            
+    
